@@ -56,7 +56,8 @@ Next... nothing. There is nothing you need to do to get this working. A helper c
         "data-confirm-cancel" => t('.destroy_confirm.cancel', :item => options[:item]),
         "data-confirm-cancel-class" => "btn-cancel"),
         "data-confirm-proceed" => t('.destroy_confirm.proceed', :item => options[:item]),
-        "data-confirm-proceed-class" => "btn-danger"
+        "data-confirm-proceed-class" => "btn-danger",
+        "data-confirm-input" => "TYPE ME"
     end
 
 ## Contributing
