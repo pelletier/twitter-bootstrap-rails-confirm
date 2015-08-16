@@ -93,10 +93,10 @@ if (typeof $().modal == 'function') # test if bootstrap is loaded
 
           $.rails.allowAction = ->
             true
-          
+
           if element.get(0).click
             element.get(0).click()
-            
+
           else if Event?
             evt = new Event("click", {
               bubbles: true,
@@ -138,5 +138,5 @@ if (typeof $().modal == 'function') # test if bootstrap is loaded
             element.get(0).dispatchEvent(evt)
 
           $.rails.allowAction = allowAction
-    
+
     false
