@@ -7,6 +7,12 @@ $.fn.twitter_bootstrap_confirmbox =
     cancel_class: "btn cancel"
     fade: false
 
+validateConfirmationInput = (event) ->
+  $input = $(event.target)
+  valid = $input.val() == $input.data("expected")
+  $input.parent().toggleClass("has-error", not valid)
+  $input.closest(".modal-content").find("a.proceed").toggleClass("disabled", not valid)
+
 TwitterBootstrapConfirmBox = (message, element, callback) ->
   bootstrap_version = if (typeof $().emulateTransitionEnd == 'function') then 3 else 2
 
@@ -75,9 +81,19 @@ TwitterBootstrapConfirmBox = (message, element, callback) ->
 
     .on("hidden", -> $(this).remove())
 
-    .modal("show")
+    if element.data("confirm-input")
+      console.log(element.data("confirm-input"))
+      $dialog.find(".modal-body")
+        .after($("<div/>", {class: "form-group has-error"})
+          .html($("<input/>", {type: 'input', class: 'form-control'})
+            .data("expected", element.data("confirm-input"))
+            .css({margin: "0px 20px", width: "calc(100% - 40px)"})
+            .prop("required", true)
+            .keyup(validateConfirmationInput)))
+      $dialog.find("a.proceed").toggleClass("disabled", true)
 
-    .appendTo(document.body)
+    $dialog.modal("show").appendTo(document.body)
+
 
 if (typeof $().modal == 'function') # test if bootstrap is loaded
   $.rails.allowAction = (element) ->
